@@ -1,0 +1,19 @@
+dependencies:
+- name: jquery-ui
+  version: 1.12.1
+  src: htmlwidgets
+  script: ./lib/jquery-ui.min.js
+  style: ./lib/jquery-ui.css
+- name: font-awesome
+  version: 4.7.0
+  src: htmlwidgets
+  style: ./font-awesome-4.7.0/css/font-awesome.min.css
+- name: jquery
+  version: 1.12.4
+  src: htmlwidgets
+  script: ./lib/jquery.min.js
+- name: igv-1.0.5
+  version: 1.0.5
+  src: htmlwidgets
+  script: ./1.0.5/igv-1.0.5.js
+  stylesheet: ./1.0.5/igv-1.0.5.css
