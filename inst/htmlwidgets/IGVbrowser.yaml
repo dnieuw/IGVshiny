@@ -16,4 +16,5 @@ dependencies:
   version: 1.0.5
   src: htmlwidgets
   script: ./1.0.5/igv-1.0.5.js
-  stylesheet: ./1.0.5/igv-1.0.5.css
+  style: ./1.0.5/igv-1.0.5.css
+  

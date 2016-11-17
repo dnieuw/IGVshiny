@@ -5,14 +5,27 @@
 #' I do not claim any ownership of igv.js, I just want to be able to implement it in a shiny dashboard app.
 #' 
 #' @import htmlwidgets
+#' @import plyr
 #'
 #' @export
-IGVbrowser <- function(message, width = NULL, height = NULL, elementId = NULL) {
-
+IGVbrowser <- function(reference=NA, showKaryo=NA, showNavigation=NA, showRuler=NA, tracks=NA, 
+											trackDefaults=NA, locus=NA, flanking=NA, search=NA, apiKey=NA, doubleClickDelay=NA,
+											width = NULL, height = NULL) {
   # forward options using x
-  x = list(
-    message = message
-  )
+
+  x <- list(
+		reference = reference,
+		showKaryo = showKaryo,
+		showNavigation = showNavigation,
+		showRuler = showRuler,
+		tracks = tracks,
+		trackDefaults = trackDefaults,
+		locus = locus,
+		flanking = flanking,
+		search = search,
+		apiKey = apiKey,
+		doubleClickDelay = doubleClickDelay
+	)
 
   # create widget
   htmlwidgets::createWidget(
@@ -20,12 +33,11 @@ IGVbrowser <- function(message, width = NULL, height = NULL, elementId = NULL) {
     x,
     width = width,
     height = height,
-    package = 'IGVshiny',
-    elementId = elementId
+    package = 'IGVshiny'
   )
 }
 
-#' IGV Annotation track factory IGVbrowser
+#' IGV track factory IGVbrowser
 #'
 #' Outputs a dataframe which can be transformed correctly to json format and serve as the options of a igv.js annotation track.
 #'
@@ -53,27 +65,34 @@ IGVbrowser <- function(message, width = NULL, height = NULL, elementId = NULL) {
 #' @name IGVbrowser-shiny
 #'
 #' @export
-IGVannotationTrack <- function(type="annotation",
-                               sourceType="file",
-                               format,
-                               name,
-                               url,
-                               indexURL,
-                               indexed,
-                               order,
-                               color,
-                               height,
-                               autoHeight=TRUE,
-                               minHeight,
-                               maxHeight,
-                               visibilityWindow=30000,
-                               displayMode="COLLAPSED",
-                               expandedRowHeight,
-                               squishedRowHeight,
-                               nameField="Name",
-                               maxRows,
-                               searchable=FALSE){
-  return(data.frame(type=type,sourceType=sourceType,###ETC))
+IGVtrack <- function(type=NA,
+											sourceType=NA,
+											format=NA,
+											name,
+											url,
+											indexURL=NA,
+											indexed=NA,
+											order=NA,
+											color=NA,
+											height=NA,
+											autoHeight=NA,
+											minHeight=NA,
+											maxHeight=NA,
+											visibilityWindow=NA,
+											#annotation-track specific arguments:
+											displayMode=NA,
+											expandedRowHeight=NA,
+											squishedRowHeight=NA,
+											nameField=NA,
+											maxRows=NA,
+											searchable=NA
+											#alignment-track specific arguments:
+										){
+		track <- list(type = type, sourceType = sourceType, format = format, name = name, url = url, indexURL = indexURL, 
+  	indexed = indexed, order = order, color = color, height = height, autoHeight = autoHeight, minHeight = minHeight, 
+  	maxHeight = maxHeight, visibilityWindow = visibilityWindow, displayMode = displayMode, expandedRowHeight = expandedRowHeight, 
+  	squishedRowHeight = squishedRowHeight, nameField = nameField, maxRows = maxRows, searchable = searchable)
+		return(track[!is.na(track)])
 }
 
 #' Shiny bindings for IGVbrowser
